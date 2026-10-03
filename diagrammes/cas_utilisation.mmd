@@ -1,0 +1,53 @@
+actor Bailleur
+actor Locataire
+actor Administrateur
+
+rectangle "Bailleur Pro" {
+    usecase "S'inscrire" as UC1
+    usecase "Se connecter" as UC2
+    usecase "Gerer profil" as UC3
+    usecase "Ajouter propriete" as UC4
+    usecase "Modifier propriete" as UC5
+    usecase "Supprimer propriete" as UC6
+    usecase "Lister proprietes" as UC7
+    usecase "Ajouter locataire" as UC8
+    usecase "Modifier locataire" as UC9
+    usecase "Lister locataires" as UC10
+    usecase "Enregistrer paiement" as UC11
+    usecase "Historique paiements" as UC12
+    usecase "Voir statistiques" as UC13
+    usecase "Consulter impayes" as UC14
+    usecase "Recevoir notifications" as UC15
+    usecase "Consulter factures" as UC16
+    usecase "Voir obligations paiement" as UC17
+}
+
+Bailleur --> UC1
+Bailleur --> UC2
+Bailleur --> UC3
+Bailleur --> UC4
+Bailleur --> UC5
+Bailleur --> UC6
+Bailleur --> UC7
+Bailleur --> UC8
+Bailleur --> UC9
+Bailleur --> UC10
+Bailleur --> UC11
+Bailleur --> UC12
+Bailleur --> UC13
+Bailleur --> UC14
+Bailleur --> UC15
+
+Locataire --> UC1
+Locataire --> UC2
+Locataire --> UC3
+Locataire --> UC16
+Locataire --> UC12
+Locataire --> UC17
+Locataire --> UC15
+
+UC1 --> UC2 : <<include>>
+UC2 --> UC3 : <<include>>
+UC4 --> UC7 : <<include>>
+UC8 --> UC10 : <<include>>
+UC11 --> UC12 : <<include>>

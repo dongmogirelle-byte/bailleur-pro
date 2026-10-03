@@ -1,0 +1,111 @@
+class Utilisateur {
+    +id: String
+    +nom: String
+    +email: String
+    +motDePasse: String
+    +role: String
+    +telephone: String
+    +dateCreation: Date
+    +sInscrire()
+    +seConnecter()
+    +mettreAJourProfil()
+    +reinitialiserMotDePasse()
+}
+
+class Propriete {
+    +id: String
+    +nom: String
+    +type: String
+    +adresse: Adresse
+    +caracteristiques: Caracteristiques
+    +loyer: Number
+    +statut: String
+    +bailleurId: String
+    +photos: Array
+    +dateCreation: Date
+    +creer()
+    +modifier()
+    +supprimer()
+    +obtenirDetails()
+    +changerStatut()
+}
+
+class Locataire {
+    +id: String
+    +nom: String
+    +email: String
+    +telephone: String
+    +proprieteId: String
+    +dateDebutBail: Date
+    +dateFinBail: Date
+    +loyer: Number
+    +creer()
+    +modifier()
+    +obtenirDetails()
+}
+
+class Paiement {
+    +id: String
+    +locataireId: String
+    +proprieteId: String
+    +montant: Number
+    +datePaiement: Date
+    +statut: String
+    +preuvePaiement: String
+    +dateCreation: Date
+    +enregistrer()
+    +valider()
+    +consulterHistorique()
+}
+
+class Contrat {
+    +id: String
+    +proprieteId: String
+    +locataireId: String
+    +dateDebut: Date
+    +dateFin: Date
+    +montantLoyer: Number
+    +conditions: String
+    +creer()
+    +modifier()
+    +obtenirDetails()
+}
+
+class Notification {
+    +id: String
+    +utilisateurId: String
+    +type: String
+    +message: String
+    +dateEnvoi: Date
+    +statut: String
+    +envoyer()
+    +marquerCommeLu()
+}
+
+class Adresse {
+    +rue: String
+    +numero: String
+    +quartier: String
+    +ville: String
+    +pays: String
+    +codePostal: String
+}
+
+class Caracteristiques {
+    +chambres: Number
+    +sallesDeBain: Number
+    +surface: Number
+    +etages: Number
+    +parking: Boolean
+    +jardin: Boolean
+}
+
+Utilisateur "1" --> "*" Propriete : gère
+Utilisateur "1" --> "*" Locataire : est
+Propriete "1" --> "*" Locataire : héberge
+Locataire "1" --> "*" Paiement : effectue
+Propriete "1" --> "*" Contrat : a
+Locataire "1" --> "*" Contrat : signe
+Utilisateur "1" --> "*" Notification : reçoit
+Propriete *-- Adresse : contient
+Propriete *-- Caracteristiques : possède

@@ -1,0 +1,29 @@
+participant Bailleur
+participant Interface
+participant PaymentService
+participant NotificationService
+participant BaseDonnees
+
+Bailleur -> Interface: Se connecter
+Interface -> Bailleur: Afficher tableau de bord
+Bailleur -> Interface: Accéder section "Paiements"
+Interface -> Bailleur: Afficher liste locataires
+Bailleur -> Interface: Sélectionner locataire
+Bailleur -> Interface: Entrer montant paiement
+Bailleur -> Interface: Upload preuve paiement (photo reçu MoMo)
+Bailleur -> Interface: Soumettre formulaire
+Interface -> PaymentService: Requête POST /api/payments
+PaymentService -> PaymentService: Valider données
+alt Données valides
+    PaymentService -> BaseDonnees: Enregistrer paiement
+    BaseDonnees -> PaymentService: Confirmer enregistrement
+    PaymentService -> PaymentService: Mettre à jour statut locataire
+    PaymentService -> NotificationService: Envoyer notification locataire
+    NotificationService -> Bailleur: Notification envoyée
+    PaymentService -> Interface: Retourner paiement enregistré
+    Interface -> Bailleur: Afficher message succès
+    Interface -> Interface: Mettre à jour liste paiements
+else Données invalides
+    PaymentService -> Interface: Retourner erreur validation
+    Interface -> Bailleur: Afficher message erreur
+end

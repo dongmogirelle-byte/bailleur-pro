@@ -1,0 +1,19 @@
+participant Utilisateur
+participant Interface
+participant AuthService
+participant BaseDonnees
+
+Utilisateur -> Interface: Entrer email et mot de passe
+Interface -> AuthService: Requête POST /api/auth/login
+AuthService -> BaseDonnees: Rechercher utilisateur par email
+BaseDonnees --> AuthService: Retourner utilisateur
+AuthService -> AuthService: Vérifier mot de passe
+alt Mot de passe correct
+    AuthService -> AuthService: Générer token JWT
+    AuthService --> Interface: Retourner token et utilisateur
+    Interface -> Interface: Stocker token dans localStorage
+    Interface -> Utilisateur: Rediriger vers tableau de bord
+else Mot de passe incorrect
+    AuthService --> Interface: Retourner erreur "Identifiants invalides"
+    Interface -> Utilisateur: Afficher message erreur
+end

@@ -1,0 +1,26 @@
+participant Bailleur
+participant Interface
+participant PropertyService
+participant BaseDonnees
+
+Bailleur -> Interface: Se connecter
+Interface -> Bailleur: Afficher tableau de bord
+Bailleur -> Interface: Accéder section "Mes propriétés"
+Interface -> Bailleur: Afficher liste propriétés
+Bailleur -> Interface: Cliquer "Ajouter propriété"
+Interface -> Bailleur: Afficher formulaire création
+Bailleur -> Interface: Remplir formulaire (nom, type, adresse, caractéristiques, loyer)
+Bailleur -> Interface: Upload photos
+Bailleur -> Interface: Soumettre formulaire
+Interface -> PropertyService: Requête POST /api/properties
+PropertyService -> PropertyService: Valider données
+alt Données valides
+    PropertyService -> BaseDonnees: Créer propriété
+    BaseDonnees -> PropertyService: Confirmer création
+    PropertyService -> Interface: Retourner propriété créée
+    Interface -> Bailleur: Afficher message succès
+    Interface -> Interface: Mettre à jour liste
+else Données invalides
+    PropertyService -> Interface: Retourner erreur validation
+    Interface -> Bailleur: Afficher message erreur
+end

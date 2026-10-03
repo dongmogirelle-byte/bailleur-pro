@@ -1,0 +1,24 @@
+participant Bailleur
+participant Interface
+participant PaymentService
+participant NotificationService
+participant BaseDonnees
+
+Bailleur -> Interface: Sélectionner locataire
+Bailleur -> Interface: Entrer montant paiement
+Bailleur -> Interface: Upload preuve paiement
+Bailleur -> Interface: Soumettre formulaire
+Interface -> PaymentService: Requête POST /api/payments
+PaymentService -> PaymentService: Valider données
+alt Données valides
+    PaymentService -> BaseDonnees: Enregistrer paiement
+    BaseDonnees --> PaymentService: Confirmer enregistrement
+    PaymentService -> PaymentService: Mettre à jour statut locataire
+    PaymentService -> NotificationService: Envoyer notification
+    NotificationService --> PaymentService: Notification envoyée
+    PaymentService --> Interface: Retourner paiement enregistré
+    Interface -> Bailleur: Afficher message succès
+else Données invalides
+    PaymentService --> Interface: Retourner erreur validation
+    Interface -> Bailleur: Afficher message erreur
+end

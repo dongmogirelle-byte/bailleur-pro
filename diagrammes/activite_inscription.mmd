@@ -1,0 +1,23 @@
+participant Utilisateur
+participant Interface
+participant System
+participant Email
+
+Utilisateur -> Interface: Accéder page inscription
+Interface -> Utilisateur: Afficher formulaire
+Utilisateur -> Interface: Remplir formulaire (nom, email, mot de passe)
+Interface -> System: Envoyer données inscription
+System -> System: Valider données
+alt Données valides
+    System -> System: Créer compte utilisateur
+    System -> Email: Envoyer email confirmation
+    Email -> Utilisateur: Recevoir email
+    Utilisateur -> Email: Cliquer lien confirmation
+    Email -> System: Confirmer email
+    System -> System: Activer compte
+    System -> Interface: Rediriger tableau de bord
+    Interface -> Utilisateur: Afficher tableau de bord
+else Données invalides
+    System -> Interface: Retourner erreur
+    Interface -> Utilisateur: Afficher message erreur
+end

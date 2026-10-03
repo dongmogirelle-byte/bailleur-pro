@@ -1,0 +1,389 @@
+CAHIER DES CHARGES
+PROJET BAILLEUR PRO
+
+I - PRÉSENTATION DU PROJET
+
+Introduction
+
+Bailleur Pro est une application web innovante conçue pour faciliter la gestion immobilière au Cameroun et en Afrique centrale. Cette plateforme permet aux bailleurs de gérer leurs propriétés, locataires, contrats, paiements, quittances et incidents au même endroit, de manière efficace et transparente. L'application vise à digitaliser les processus traditionnels de gestion immobilière qui sont souvent manuels, chronophages et sujets à erreurs.
+
+Contexte
+
+Dans la région, la gestion immobilière repose encore largement sur des méthodes traditionnelles : carnets papier, tableurs Excel, et communications informelles. Les bailleurs rencontrent plusieurs difficultés : suivi difficile des paiements, absence de preuves de paiement, gestion manuelle des contrats, et manque de visibilité sur l'état de leurs propriétés. Les locataires, quant à eux, souffrent d'un manque de transparence sur leurs obligations de paiement et d'historique de leurs transactions.
+
+Étude de l'existant
+
+Des solutions locales existent désormais. Elles couvrent déjà le suivi des loyers, les quittances, le Mobile Money et une application pour le locataire, d'après les sites des éditeurs consultés en octobre 2026.
+
+Solution | Ce qu'elle propose | Écart avec Bailleur Pro
+--- | --- | ---
+Ubora Living | Suivi des loyers, factures conformes DGI, rappels WhatsApp, paiement Mobile Money, maintenance, application locataire ; gratuit jusqu'à 10 unités | Pas de gestion de preuves de paiement mise en avant
+SmartBail Africa | Contrats OHADA, quittances PDF, Mobile Money (MTN MoMo, Orange Money) ; 5 000 à 12 000 XAF par mois, essai de 14 jours | Offre payante dès le lancement ; preuves de paiement non mises en avant
+Kinaru | Annonces, gestion locative et demandes des locataires dans une application mobile | Orientée recherche de logement autant que gestion
+
+Les limites restantes du marché, que Bailleur Pro vise : coût pour les petits propriétaires, interface parfois complexe, support limité, et absence de gestion des preuves de paiement.
+
+Objectifs
+
+Le projet Bailleur Pro a pour objectifs principaux :
+- Simplifier la gestion des propriétés pour les bailleurs
+- Automatiser le suivi des paiements et des échéances
+- Générer automatiquement les quittances de loyer
+- Réduire les litiges grâce aux preuves de paiement MoMo et Orange Money (photos de reçus), horodatées et archivées
+- Permettre aux locataires de signaler des incidents et d'en suivre le traitement
+- Offrir une interface intuitive et accessible
+- Intégrer les moyens de paiement locaux (MoMo, Orange Money)
+- Garantir la transparence entre bailleurs et locataires
+- Permettre une gestion multi-propriétés facile
+- Offrir des statistiques et rapports détaillés
+
+Solution
+
+Bailleur Pro est une application web responsive, installable sur téléphone (PWA), basée sur une architecture de microservices. La solution comprend :
+- Une interface utilisateur moderne et responsive accessible depuis n'importe quel appareil
+- Un système d'authentification sécurisé pour bailleurs et locataires
+- Un module de gestion des propriétés avec photos et caractéristiques détaillées
+- Un système de gestion des locataires et des contrats de location conformes OHADA
+- Un module de suivi des paiements avec preuves numériques et quittances automatiques
+- Un module d'incidents, où le locataire signale un problème et le bailleur suit son statut
+- Des tableaux de bord avec statistiques en temps réel
+- Un système de notifications par email, dans l'application et par SMS
+
+Ce qui différencie Bailleur Pro :
+- Les preuves de paiement sont au centre du produit, sans dépendre des API des opérateurs mobiles
+- Le locataire peut s'inscrire avec son numéro de téléphone, sans adresse email obligatoire
+- Le tableau de bord inclut le taux d'occupation, les impayés et des rapports personnalisables
+- Prix accessible aux petits propriétaires dès le lancement
+
+L'architecture en microservices permet une évolutivité facile et une maintenance simplifiée. Chaque service fonctionne de manière indépendante, ce qui facilite les mises à jour et l'ajout de nouvelles fonctionnalités.
+
+II - BESOINS ET EXIGENCES
+
+Besoins et exigences fonctionnels
+
+1. Gestion des utilisateurs
+- Inscription des bailleurs avec validation d'email
+- Inscription des locataires avec validation d'email ou de numéro de téléphone
+- Connexion sécurisée avec identifiant et mot de passe
+- Réinitialisation du mot de passe par email ou SMS
+- Gestion du profil utilisateur (nom, email, téléphone)
+- Attribution de rôles (bailleur, locataire, administrateur optionnel)
+
+2. Gestion des propriétés
+- Création de propriétés avec informations détaillées (adresse, type, caractéristiques, loyer)
+- Upload de photos pour chaque propriété
+- Modification des informations de propriété
+- Suppression de propriétés (désactivation)
+- Consultation de la liste des propriétés
+- Recherche et filtrage de propriétés (par ville, type, prix)
+- Gestion du statut des propriétés (disponible, occupée, en maintenance)
+- Association des propriétés aux bailleurs
+
+3. Gestion des locataires et des contrats
+- Ajout de locataires à une propriété
+- Création de contrats de location à partir de modèles conformes OHADA
+- Génération du contrat en PDF
+- Modification des informations des locataires
+- Consultation de la liste des locataires
+- Historique des locataires par propriété
+- Association des locataires aux propriétés
+
+4. Gestion des paiements
+- Enregistrement des paiements reçus
+- Upload de preuves de paiement (photos de reçus MoMo ou Orange Money) par le bailleur et par le locataire
+- Validation du paiement par le bailleur lorsque la preuve vient du locataire
+- Suivi des paiements en retard et des impayés
+- Génération de rappels automatiques pour paiements dus
+- Historique complet des paiements
+- Calcul automatique des montants dus
+- Export des données de paiement
+
+5. Quittances automatiques
+- Génération automatique d'une quittance PDF dès qu'un paiement est validé
+- Numéro unique par quittance, avec bailleur, locataire, propriété, période et montant
+- Envoi au locataire et archivage consultable par les deux parties
+- Les mentions exigées par la DGI sont à vérifier avant de revendiquer la conformité
+
+6. Gestion des incidents
+- Le locataire signale un incident (description, photo, urgence)
+- Le bailleur reçoit une notification et met à jour le statut : signalé, en cours, résolu
+- Historique des incidents par propriété
+- Le statut de la propriété passe à « en maintenance » si le bailleur le décide
+
+7. Tableau de bord et statistiques
+- Affichage du revenu mensuel total
+- Nombre de propriétés gérées
+- Nombre de locataires
+- Taux d'occupation des propriétés
+- Liste des impayés
+- Graphiques d'évolution des revenus
+- Rapports personnalisables
+
+8. Notifications
+- Notifications de rappel de paiement
+- Notifications de nouveau paiement reçu
+- Notifications de fin de bail
+- Notifications d'incident signalé ou mis à jour
+- Notifications par email, dans l'application et par SMS (le SMS est réservé aux rappels critiques pour limiter les coûts)
+
+Besoins et exigences non fonctionnels
+
+1. Performance
+- Temps de réponse inférieur à 2 secondes pour les pages principales
+- Support de 100 utilisateurs simultanés au lancement
+- Temps de chargement des images inférieur à 3 secondes
+- Cible de croissance : support de 1 000 utilisateurs simultanés
+
+2. Sécurité
+- Chiffrement des mots de passe (bcrypt)
+- Utilisation de tokens JWT pour l'authentification
+- Jeton stocké dans un cookie httpOnly (pas dans localStorage)
+- Protection contre les attaques CSRF et XSS
+- Connexion HTTPS obligatoire
+- Validation de toutes les entrées utilisateur
+
+3. Disponibilité
+- Disponibilité meilleur effort au lancement
+- Sauvegardes automatiques quotidiennes des données
+- Plan de reprise après sinistre
+- Cible de croissance : disponibilité 99.9% sur une offre payante
+
+4. Utilisabilité
+- Interface intuitive et facile à utiliser
+- Compatible avec les navigateurs modernes (Chrome, Firefox, Safari, Edge)
+- Design responsive pour mobile et tablette
+- Application installable (PWA)
+- Accessibilité pour les utilisateurs malvoyants
+- Cible de croissance : mode hors-ligne pour la consultation
+
+5. Scalabilité
+- Architecture capable de supporter la croissance
+- Possibilité d'ajouter de nouveaux microservices
+- Base de données scalable
+- Mise à l'échelle par service
+
+6. Maintenance
+- Code bien documenté
+- Tests unitaires pour les fonctions critiques
+- Logs détaillés pour le débogage
+- Mises à jour faciles sans interruption de service
+
+III - CONCEPTION DU PROJET
+
+Les langages et technologies à utiliser
+
+Frontend (Interface utilisateur)
+- React 18 : Framework JavaScript pour l'interface utilisateur
+- Vite : Outil de build rapide pour React
+- Tailwind CSS : Framework CSS pour le design
+- React Router : Gestion du routage dans l'application
+- Axios : Client HTTP pour les appels API
+- PWA : Installation sur téléphone
+
+Backend (Microservices)
+- Node.js : Environnement d'exécution JavaScript
+- Express : Framework web pour Node.js
+- MongoDB : Base de données NoSQL flexible
+- Mongoose : ODM pour MongoDB
+- JWT : Tokens pour l'authentification
+- bcryptjs : Hachage des mots de passe
+
+Infrastructure
+- MongoDB Atlas : Base de données cloud
+- Render : Plateforme de déploiement cloud
+- Git : Gestion de version
+- Cloudinary ou stockage compatible S3 : Stockage de fichiers (photos, PDF)
+- Service d'envoi d'emails et passerelle SMS : Messagerie
+
+Diagrammes
+
+1. Diagramme de cas d'utilisation
+
+Acteurs principaux :
+- Bailleur
+- Locataire
+- Administrateur (optionnel)
+
+Cas d'utilisation pour le Bailleur :
+- S'inscrire sur la plateforme
+- Se connecter à son compte
+- Gérer son profil
+- Ajouter une propriété
+- Modifier une propriété
+- Supprimer une propriété
+- Consulter la liste de ses propriétés
+- Ajouter un locataire
+- Modifier les informations d'un locataire
+- Consulter la liste de ses locataires
+- Créer un contrat de location
+- Enregistrer un paiement
+- Valider une preuve de paiement déposée par le locataire
+- Consulter l'historique des paiements
+- Voir les statistiques de revenus
+- Consulter les impayés
+- Suivre et mettre à jour les incidents
+- Recevoir des notifications
+
+Cas d'utilisation pour le Locataire :
+- S'inscrire sur la plateforme
+- Se connecter à son compte
+- Gérer son profil
+- Consulter ses factures et quittances
+- Consulter l'historique de ses paiements
+- Voir ses obligations de paiement
+- Déposer une preuve de paiement
+- Signaler un incident et suivre son statut
+- Recevoir des notifications de rappel
+
+2. Diagramme de classes
+
+Classes principales :
+
+Utilisateur
+- Attributs : id, nom, email, telephone, motDePasse, role, dateCreation
+- Méthodes : sInscrire(), seConnecter(), mettreAJourProfil(), reinitialiserMotDePasse()
+
+Propriete
+- Attributs : id, nom, type, adresse, caracteristiques, loyer, statut, bailleurId, photos, dateCreation
+- Méthodes : creer(), modifier(), supprimer(), obtenirDetails(), changerStatut()
+
+Locataire
+- Attributs : id, nom, email, telephone, proprieteId, dateDebutBail, dateFinBail, loyer
+- Méthodes : creer(), modifier(), obtenirDetails()
+
+Contrat
+- Attributs : id, proprieteId, locataireId, dateDebut, dateFin, montantLoyer, conditions, pdf
+- Méthodes : creer(), modifier(), obtenirDetails(), genererPdf()
+
+Paiement
+- Attributs : id, locataireId, proprieteId, montant, datePaiement, statut, preuvePaiement, deposePar, dateCreation
+- Méthodes : enregistrer(), valider(), consulterHistorique()
+
+Quittance
+- Attributs : id, paiementId, numero, periode, montant, pdf, dateEmission
+- Méthodes : generer(), envoyer(), telecharger()
+
+Incident
+- Attributs : id, proprieteId, locataireId, description, photos, urgence, statut, dateSignalement
+- Méthodes : signaler(), changerStatut(), consulterHistorique()
+
+Notification
+- Attributs : id, utilisateurId, type, canal, message, dateEnvoi, statut
+- Méthodes : envoyer(), marquerCommeLu()
+
+3. Diagramme d'activités
+
+Activité d'inscription d'un bailleur :
+1. L'utilisateur accède à la page d'inscription
+2. L'utilisateur remplit le formulaire (nom, email, mot de passe)
+3. Le système valide les données
+4. Le système crée le compte utilisateur
+5. Le système envoie un email de confirmation
+6. L'utilisateur confirme son email
+7. Le compte est activé
+8. L'utilisateur est redirigé vers le tableau de bord
+
+Activité d'ajout d'une propriété :
+1. Le bailleur se connecte
+2. Le bailleur accède à la section "Mes propriétés"
+3. Le bailleur clique sur "Ajouter une propriété"
+4. Le bailleur remplit le formulaire (nom, type, adresse, caractéristiques, loyer)
+5. Le bailleur upload les photos
+6. Le système valide les données
+7. Le système crée la propriété dans la base de données
+8. Le système affiche un message de succès
+9. La propriété apparaît dans la liste
+
+Activité d'enregistrement d'un paiement avec quittance :
+1. Le bailleur se connecte
+2. Le bailleur accède à la section "Paiements"
+3. Le bailleur sélectionne un locataire et entre le montant, ou valide la preuve déposée par le locataire
+4. Le bailleur ou le locataire téléverse la preuve de paiement (photo de reçu MoMo ou Orange Money)
+5. Le système valide les données
+6. Le système enregistre le paiement
+7. Le système met à jour le statut du locataire
+8. Le système génère la quittance PDF avec un numéro unique
+9. Le système envoie la quittance et une notification au locataire
+
+Activité de signalement d'un incident :
+1. Le locataire se connecte
+2. Le locataire accède à la section "Incidents"
+3. Le locataire décrit le problème, ajoute une photo et choisit l'urgence
+4. Le système enregistre l'incident au statut "signalé"
+5. Le système notifie le bailleur
+6. Le bailleur passe l'incident à "en cours" puis "résolu"
+7. Le système notifie le locataire à chaque changement
+
+4. Diagramme de séquence
+
+Séquence d'authentification :
+1. Utilisateur -> Interface : Entrer identifiant et mot de passe
+2. Interface -> Auth Service : Requête de connexion
+3. Auth Service -> Base de données : Vérifier utilisateur
+4. Base de données -> Auth Service : Retourner utilisateur
+5. Auth Service -> Auth Service : Vérifier mot de passe
+6. Auth Service -> Auth Service : Générer token JWT
+7. Auth Service -> Interface : Retourner token dans cookie httpOnly et utilisateur
+8. Interface -> Utilisateur : Rediriger vers tableau de bord
+
+Séquence de création de propriété :
+1. Bailleur -> Interface : Cliquer sur "Ajouter propriété"
+2. Interface -> Bailleur : Afficher formulaire
+3. Bailleur -> Interface : Remplir et soumettre formulaire
+4. Interface -> Property Service : Requête POST /api/properties
+5. Property Service -> Property Service : Valider données
+6. Property Service -> Storage Service : Upload photos
+7. Property Service -> Base de données : Créer propriété
+8. Base de données -> Property Service : Confirmer création
+9. Property Service -> Interface : Retourner propriété créée
+10. Interface -> Bailleur : Afficher message succès et mettre à jour liste
+
+Séquence d'enregistrement de paiement :
+1. Bailleur/Locataire -> Interface : Sélectionner locataire, entrer montant, upload preuve
+2. Interface -> Payment Service : Requête POST /api/payments
+3. Payment Service -> Payment Service : Valider données
+4. Payment Service -> Storage Service : Dépôt de la preuve
+5. Payment Service -> Base de données : Enregistrer paiement
+6. Payment Service -> Payment Service : Générer quittance PDF
+7. Payment Service -> Storage Service : Stocker quittance
+8. Payment Service -> Notification Service : Envoyer notification et quittance
+9. Payment Service -> Interface : Retourner paiement enregistré
+10. Interface -> Bailleur/Locataire : Afficher message succès
+
+Périmètre : MVP et version 2
+
+Le MVP couvre le cycle complet loyer, preuve, quittance et incident ; le reste attend la version 2.
+
+Fonctionnalité | MVP | Version 2
+--- | --- | ---
+Authentification bailleur et locataire | ✔ |
+Propriétés avec photos et statuts | ✔ |
+Locataires et contrats | ✔ |
+Paiements avec preuves (photos de reçus) | ✔ |
+Quittances PDF automatiques | ✔ |
+Rappels de paiement dans l'application et par email | ✔ |
+Signalement et suivi d'incidents | ✔ |
+Tableau de bord (revenus, occupation, impayés) | ✔ |
+Rappels par SMS | | ✔
+Contrats conformes OHADA en PDF | | ✔
+Application installable (PWA) et mode hors-ligne | | ✔
+Rapports personnalisables et export fiscal | | ✔
+Charges et dépenses par immeuble, rentabilité | | ✔
+Cautions, avances de loyer et état des lieux avec photos | | ✔
+Intégration directe des API MoMo et Orange Money | | ✔
+Annonces de logements à louer | | ✔
+
+IV - CONCLUSION
+
+Le projet Bailleur Pro représente une solution innovante et adaptée aux besoins locaux de gestion immobilière. L'architecture en microservices garantit une évolutivité et une maintenance robustes, tandis que l'interface utilisateur moderne assure une expérience utilisateur fluide et intuitive.
+
+Les fonctionnalités proposées répondent directement aux problèmes identifiés dans l'étude de l'existant : simplification de la gestion, automatisation du suivi des paiements, transparence accrue, réduction des litiges grâce aux preuves de paiement numériques, et suivi des incidents.
+
+L'utilisation de technologies modernes et éprouvées (React, Node.js, MongoDB) assure la fiabilité et la performance de l'application. L'intégration des moyens de paiement locaux (MoMo, Orange Money) rend la solution parfaitement adaptée au contexte camerounais et africain.
+
+Ce cahier des charges définit clairement les besoins fonctionnels et non fonctionnels du projet, ainsi que la conception technique. Il servira de référence pour le développement, les tests et la maintenance de l'application Bailleur Pro.
+
+La prochaine étape consistera à développer les microservices selon les spécifications définies, en commençant par le service d'authentification, suivi du service de gestion des propriétés, puis des services de gestion des locataires et des paiements, avec les quittances et les incidents ensuite.
+
+L'application sera déployée sur Render avec MongoDB Atlas pour la base de données et un stockage externe pour les fichiers, garantissant une disponibilité élevée et une scalabilité pour accompagner la croissance de la plateforme.
+
